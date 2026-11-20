@@ -1,0 +1,17 @@
+# Sugar Land TMS landing page: standalone Netlify site.
+# Renders the PHP templates in lp/tms/ to static HTML in dist-lp/.
+[build]
+  command = "php build-lp.php"
+  publish = "dist-lp"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
