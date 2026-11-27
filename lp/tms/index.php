@@ -52,12 +52,8 @@ lp_head($lp, $title, $desc,
     '<link rel="preload" as="image" href="' . $img . 'apollo-system-800.jpg">'
     . "\n    <script type=\"application/ld+json\">" . json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>'
     . "\n    <style>
-        /* Multi-step form: without JS every step shows; with JS one at a time */
-        .js .step { display: none; }
-        .js .step.is-active { display: block; animation: heroIn .45s cubic-bezier(.2,.7,.2,1) both; }
-        .choice input:checked + span { border-color: #0f4c9a; background: #eef5fd; box-shadow: 0 0 0 1px #0f4c9a inset; }
-        .choice input:checked + span .dot { background: #0f4c9a; box-shadow: inset 0 0 0 3px #fff; border-color: #0f4c9a; }
-        .choice input:focus-visible + span { outline: 2px solid #22a998; outline-offset: 2px; }
+        /* LeadConnector form: sit above the loading note once shown */
+        #inline-VTaPJ2RsmQibnG0BVy7i { z-index: 1; background: #fff !important; }
         .hl { background: linear-gradient(transparent 62%, #a2eadd 62%, #a2eadd 92%, transparent 92%); }
     </style>
     <script>document.documentElement.classList.add('js')</script>"
@@ -109,80 +105,39 @@ lp_head($lp, $title, $desc,
             </div>
         </div>
 
-        <!-- Multi-step enquiry form -->
+        <!-- Enquiry form (LeadConnector embed) -->
         <div id="consult" class="hero-in scroll-mt-32 [animation-delay:.1s] lg:sticky lg:top-32">
             <div class="overflow-hidden rounded-3xl bg-white shadow-card ring-1 ring-brand-900/10">
                 <div class="bg-brand-700 px-6 py-4 text-white sm:px-7">
                     <p class="text-lg font-extrabold">See if TMS is right for you</p>
                     <p class="text-sm text-white/75">Takes 30 seconds · Free · No obligation</p>
                 </div>
-                <form id="lp-form" name="tms-lp" method="POST" action="<?= e($lp['thanks']) ?>"
-                      <?= $isStatic ? 'data-netlify="true" netlify-honeypot="website"' : '' ?>
-                      class="p-6 sm:p-7" novalidate>
-                    <input type="hidden" name="form-name" value="tms-lp">
-                    <?php foreach (['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid'] as $k): ?>
-                    <input type="hidden" name="<?= $k ?>" value="" data-utm="<?= $k ?>">
-                    <?php endforeach; ?>
-                    <p class="hidden"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></p>
-
-                    <!-- Progress (JS only) -->
-                    <div class="mb-5 hidden items-center gap-3 [.js_&]:flex">
-                        <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-100"><div id="lp-bar" class="h-full w-1/3 rounded-full bg-teal-500 transition-all duration-500"></div></div>
-                        <span id="lp-step-label" class="text-xs font-bold text-slate-500">Step 1 of 3</span>
-                    </div>
-
-                    <!-- Step 1 -->
-                    <fieldset class="step is-active" data-step="1">
-                        <legend class="mb-4 text-lg font-extrabold text-brand-950">Who are you looking into TMS for?</legend>
-                        <div class="grid gap-2.5">
-                            <?php foreach (['Myself', 'A family member or loved one'] as $o): ?>
-                            <label class="choice block cursor-pointer">
-                                <input type="radio" name="for_whom" value="<?= e($o) ?>" class="sr-only" required aria-label="<?= e($o) ?>">
-                                <span class="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3.5 font-semibold text-brand-950 transition hover:border-brand-400">
-                                    <span class="dot h-5 w-5 shrink-0 rounded-full border-2 border-slate-300"></span><?= e($o) ?>
-                                </span>
-                            </label>
-                            <?php endforeach; ?>
-                        </div>
-                    </fieldset>
-
-                    <!-- Step 2 -->
-                    <fieldset class="step mt-6 [.js_&]:mt-0" data-step="2">
-                        <legend class="mb-4 text-lg font-extrabold text-brand-950">When would you like to get started?</legend>
-                        <div class="grid gap-2.5">
-                            <?php foreach (['As soon as possible', 'In the next month or two', 'Just researching for now'] as $o): ?>
-                            <label class="choice block cursor-pointer">
-                                <input type="radio" name="timeline" value="<?= e($o) ?>" class="sr-only" required aria-label="<?= e($o) ?>">
-                                <span class="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3.5 font-semibold text-brand-950 transition hover:border-brand-400">
-                                    <span class="dot h-5 w-5 shrink-0 rounded-full border-2 border-slate-300"></span><?= e($o) ?>
-                                </span>
-                            </label>
-                            <?php endforeach; ?>
-                        </div>
-                        <button type="button" data-back class="mt-4 hidden text-sm font-bold text-slate-500 hover:text-brand-700 [.js_&]:inline">← Back</button>
-                    </fieldset>
-
-                    <!-- Step 3 -->
-                    <fieldset class="step mt-6 space-y-3 [.js_&]:mt-0" data-step="3">
-                        <legend class="mb-1 text-lg font-extrabold text-brand-950">Where should we call you?</legend>
-                        <p class="mb-2 text-sm text-slate-500">Our Maryland team calls back during clinic hours.</p>
-                        <input name="name" type="text" required autocomplete="name" placeholder="Full name" aria-label="Full name"
-                               class="block w-full rounded-xl border-slate-200 px-4 py-3.5 text-brand-950 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500">
-                        <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="Phone number" aria-label="Phone number" pattern="[\s\-\.\(\)\+]*(?:\d[\s\-\.\(\)\+]*){10,15}" title="10-digit phone number"
-                               class="block w-full rounded-xl border-slate-200 px-4 py-3.5 text-brand-950 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500">
-                        <input name="email" type="email" required autocomplete="email" placeholder="Email" aria-label="Email"
-                               class="block w-full rounded-xl border-slate-200 px-4 py-3.5 text-brand-950 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500">
-                        <label class="flex gap-3 pt-1 text-xs leading-relaxed text-slate-500">
-                            <input type="checkbox" name="consent" value="yes" required class="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 text-brand-700 focus:ring-brand-500">
-                            <span>I agree to be contacted by Novara Healthcare by phone, text or email. This is not a medical assessment and doesn’t confirm eligibility for treatment.</span>
-                        </label>
-                        <p id="lp-error" class="hidden rounded-lg bg-red-50 px-3 py-2 text-sm font-semibold text-red-700" role="alert"></p>
-                        <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-xl bg-teal-500 py-4 text-base font-extrabold text-brand-950 shadow-lg shadow-teal-500/30 transition hover:bg-teal-400 disabled:opacity-60">
-                            <span class="lp-submit-label">Get my free consultation</span> <?= $arrow ?>
-                        </button>
-                        <button type="button" data-back class="hidden text-sm font-bold text-slate-500 hover:text-brand-700 [.js_&]:inline">← Back</button>
-                    </fieldset>
-                </form>
+                <!-- LeadConnector (GoHighLevel) form. Submissions, notifications and the thank-you step are managed in LeadConnector. -->
+                <div class="relative min-h-[560px] p-3 sm:p-4">
+                    <p class="absolute inset-x-0 top-24 flex items-center justify-center gap-2 text-sm font-semibold text-slate-400" aria-hidden="true">
+                        <span class="h-4 w-4 animate-spin rounded-full border-2 border-slate-200 border-t-teal-500"></span> Loading form…
+                    </p>
+                    <iframe
+                        src="https://api.leadconnectorhq.com/widget/form/VTaPJ2RsmQibnG0BVy7i"
+                        style="width:100%;height:100%;min-height:560px;border:none;border-radius:8px"
+                        id="inline-VTaPJ2RsmQibnG0BVy7i"
+                        data-layout="{'id':'INLINE'}"
+                        data-trigger-type="alwaysShow"
+                        data-trigger-value=""
+                        data-activation-type="alwaysActivated"
+                        data-activation-value=""
+                        data-deactivation-type="neverDeactivate"
+                        data-deactivation-value=""
+                        data-form-name="Mykohi g ads"
+                        data-height="undefined"
+                        data-layout-iframe-id="inline-VTaPJ2RsmQibnG0BVy7i"
+                        data-form-id="VTaPJ2RsmQibnG0BVy7i"
+                        data-cookie-consent="true"
+                        data-cookie-consent-provider="auto"
+                        title="See if TMS is right for you: enquiry form">
+                    </iframe>
+                    <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+                </div>
                 <div class="flex items-center justify-between gap-3 border-t border-slate-100 bg-slate-50 px-6 py-4 text-sm sm:px-7">
                     <span class="flex items-center gap-1.5 text-slate-500">
                         <svg class="h-4 w-4 text-teal-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
@@ -465,61 +420,6 @@ lp_head($lp, $title, $desc,
 <script>
 (function () {
     var dl = window.dataLayer = window.dataLayer || [];
-    var store = { get: function (k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
-                  set: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
-
-    // Keep ad attribution (UTMs / gclid) for the session
-    var params = new URLSearchParams(location.search);
-    document.querySelectorAll('[data-utm]').forEach(function (input) {
-        var k = input.getAttribute('data-utm');
-        if (params.get(k)) store.set('lp_' + k, params.get(k));
-        input.value = params.get(k) || store.get('lp_' + k) || '';
-    });
-
-    // Multi-step form
-    var form = document.getElementById('lp-form');
-    var steps = form.querySelectorAll('.step');
-    var bar = document.getElementById('lp-bar');
-    var label = document.getElementById('lp-step-label');
-    var err = document.getElementById('lp-error');
-    var current = 1, started = false;
-    function show(n) {
-        current = n;
-        steps.forEach(function (s) { s.classList.toggle('is-active', +s.dataset.step === n); });
-        bar.style.width = (n / steps.length * 100) + '%';
-        label.textContent = 'Step ' + n + ' of ' + steps.length;
-        if (n === steps.length) { var f = form.querySelector('[name="name"]'); if (f) f.focus({ preventScroll: true }); }
-    }
-    form.querySelectorAll('input[type="radio"]').forEach(function (r) {
-        r.addEventListener('change', function () {
-            if (!started) { started = true; dl.push({ event: 'lp_form_start' }); }
-            var step = +r.closest('.step').dataset.step;
-            setTimeout(function () { show(step + 1); }, 220);
-        });
-    });
-    form.querySelectorAll('[data-back]').forEach(function (b) { b.addEventListener('click', function () { show(current - 1); }); });
-
-    form.addEventListener('submit', function (ev) {
-        // Validate every step; jump to the first one with a problem
-        for (var i = 0; i < steps.length; i++) {
-            var bad = Array.prototype.find.call(steps[i].querySelectorAll('input'), function (el) { return !el.checkValidity(); });
-            if (bad) {
-                ev.preventDefault();
-                show(i + 1);
-                var last = i + 1 === steps.length;
-                err.textContent = bad.type === 'checkbox' ? 'Please tick the box to agree to be contacted.' : 'Please enter a valid ' + (bad.getAttribute('aria-label') || 'answer').toLowerCase() + '.';
-                err.classList.toggle('hidden', !last);
-                if (last) bad.focus();
-                return;
-            }
-        }
-        err.classList.add('hidden');
-        var btn = form.querySelector('button[type="submit"]');
-        btn.disabled = true;
-        form.querySelector('.lp-submit-label').textContent = 'Sending…';
-        dl.push({ event: 'lp_form_submit' });   // no health answers sent to analytics
-    });
-
     // Video stories: swap the thumbnail for a YouTube (privacy-enhanced) player on click
     document.querySelectorAll('[data-yt]').forEach(function (b) {
         b.addEventListener('click', function () {
