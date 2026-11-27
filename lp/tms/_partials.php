@@ -1,6 +1,6 @@
 <?php
 /**
- * Shared config + layout for the Sugar Land TMS landing page (index.php, thank-you.php).
+ * Shared config + layout for the Maryland (Gambrills, MD) TMS landing page (index.php, thank-you.php).
  *
  * Every clinical statement on these pages is taken from novarahc.com (TMS page, FAQ)
  * and must still be approved by Novara's clinical team before ads go live.
@@ -15,13 +15,15 @@ $lp = [
     'name'      => 'Novara Healthcare',
     'url'       => 'https://novarahc.com/',
     'lp_url'    => defined('LP_URL') ? LP_URL : 'https://novarahc.com/lp/tms/',
-    'email'     => 'info@novarahealthtx.com',
+    'email'     => 'info@novarahealthmd.com',
     'logo'      => 'https://novarahc.com/wp-content/uploads/2026/03/Novara-Healthcare-Logo.png',
     'favicon'   => 'https://novarahc.com/wp-content/uploads/2026/03/cropped-favicon1-192x192.png',
-    'street'    => '5501 Cabrera Dr Suite 503',
-    'city'      => 'Sugar Land, TX 77479',
+    'area'      => 'Maryland',
+    'street'    => '2401 Brandermill Suite 330',
+    'city'      => 'Gambrills, MD 21054',
     'hours'     => 'Mon–Fri, 9:00am–5:00pm',
-    'maps'      => 'https://www.google.com/maps/search/?api=1&query=Novara+Healthcare+5501+Cabrera+Dr+Suite+503+Sugar+Land+TX+77479',
+    'maps'      => 'https://www.google.com/maps/search/?api=1&query=2401+Brandermill+Blvd+Suite+330+Gambrills+MD+21054',
+    'map_embed' => 'https://www.google.com/maps?q=2401+Brandermill+Blvd+%23330,+Gambrills,+MD+21054&output=embed',
     'img'       => $lpBase . 'img/',
     // Static (Netlify) build posts to Netlify Forms and lands on <base>thank-you/.
     'thanks'    => $isStatic ? $lpBase . 'thank-you/' : 'thank-you.php',
@@ -134,7 +136,7 @@ function lp_header(array $lp, bool $showCta = true): void { ?>
     <div class="bg-teal-400 text-brand-950">
         <p class="mx-auto flex max-w-6xl items-center justify-center gap-2 px-4 py-1.5 text-center text-[12.5px] font-bold sm:text-[13px]">
             <svg class="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.05 2.93c.3-.92 1.6-.92 1.9 0l1.07 3.29a1 1 0 00.95.69h3.46c.97 0 1.37 1.24.59 1.81l-2.8 2.03a1 1 0 00-.36 1.12l1.07 3.29c.3.92-.75 1.69-1.54 1.12l-2.8-2.03a1 1 0 00-1.17 0l-2.8 2.03c-.78.57-1.83-.2-1.53-1.12l1.07-3.29a1 1 0 00-.37-1.12L2.98 8.72c-.78-.57-.38-1.81.59-1.81h3.46a1 1 0 00.95-.69l1.07-3.29z"/></svg>
-            Free TMS consultation in Sugar Land<span class="hidden sm:inline"> · Mon–Fri, 9am–5pm</span>
+            Free TMS consultation in <?= e($lp['area']) ?><span class="hidden sm:inline"> · Mon–Fri, 9am–5pm</span>
         </p>
     </div>
     <!-- Main bar: logo + trust + form button. No menu, so visitors stay on the page. -->

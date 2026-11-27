@@ -1,6 +1,6 @@
 <?php
 /**
- * Thank-you page for the Sugar Land TMS landing page.
+ * Thank-you page for the Maryland TMS landing page.
  * On Netlify the form is handled by Netlify Forms, which then redirects here.
  * On a PHP server this page receives the POST and emails the enquiry.
  */
@@ -24,7 +24,7 @@ if (!$isStatic && ($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     }
 }
 
-lp_head($lp, 'Thank you | Novara Healthcare Sugar Land', 'Thanks for contacting Novara Healthcare. Our Sugar Land team will be in touch.');
+lp_head($lp, 'Thank you | Novara Healthcare Maryland', 'Thanks for contacting Novara Healthcare. Our Maryland team will be in touch.');
 ?>
 <body class="flex min-h-screen flex-col bg-sand-50 font-sans text-slate-700 antialiased">
 <?php lp_header($lp, false); ?>
@@ -39,7 +39,7 @@ lp_head($lp, 'Thank you | Novara Healthcare Sugar Land', 'Thanks for contacting 
             <svg class="h-9 w-9" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
         </span>
         <h1 class="hero-in mt-8 text-balance font-display text-5xl leading-[1.05] text-brand-950 [animation-delay:.08s] sm:text-6xl">Thank you. <em class="text-brand-600">We’ve got it.</em></h1>
-        <p class="hero-in mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-600 [animation-delay:.16s]">A member of our Sugar Land team will call you back during clinic hours (<?= e($lp['hours']) ?>) to answer your questions and talk through next steps.</p>
+        <p class="hero-in mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-600 [animation-delay:.16s]">A member of our Maryland team will call you back during clinic hours (<?= e($lp['hours']) ?>) to answer your questions and talk through next steps.</p>
         <?php else: ?>
         <h1 class="hero-in font-display text-5xl leading-[1.05] text-brand-950">Sorry, something went wrong.</h1>
         <p class="hero-in mx-auto mt-6 max-w-xl text-lg leading-relaxed text-slate-600">We couldn’t send your enquiry. Please email us at <a href="mailto:<?= e($lp['email']) ?>" class="font-bold text-brand-700 underline"><?= e($lp['email']) ?></a> and we’ll be glad to help.</p>

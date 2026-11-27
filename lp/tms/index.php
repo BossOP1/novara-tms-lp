@@ -1,6 +1,6 @@
 <?php
 /**
- * Novara Healthcare — Google Ads landing page: TMS therapy, Sugar Land TX.
+ * Novara Healthcare — Google Ads landing page: TMS therapy, Gambrills, MD (Maryland).
  * One goal: get the visitor to submit the enquiry form.
  *
  * CLINICAL REVIEW: treatment, safety, FDA and insurance wording comes from
@@ -8,8 +8,8 @@
  */
 require __DIR__ . '/_partials.php';
 
-$title = 'TMS Therapy for Depression in Sugar Land, TX | Novara Healthcare';
-$desc  = 'Non-invasive TMS therapy for depression in Sugar Land, TX. FDA-cleared, no sedation, 20–40 minute sessions. Request a free consultation with Novara Healthcare.';
+$title = 'Advanced TMS Treatment for Depression in Gambrills, MD | Novara Healthcare';
+$desc  = 'Non-invasive TMS therapy for depression in Gambrills, Maryland. FDA-cleared, no sedation, 20–40 minute sessions. Request a free consultation with Novara Healthcare.';
 $img   = $lp['img'];
 
 $check = '<svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>';
@@ -24,14 +24,24 @@ $faqs = [
     ['What about MeRT?', 'Novara also offers MeRT, which personalizes magnetic stimulation using a qEEG brain map. MeRT is not FDA-cleared, and results vary. Ask us about it on your call.'],
 ];
 
+// Clinic photos for the gallery: [file (in img/, plus a -800 version), caption, alt text, grid classes].
+// These are Novara's real clinic photos (taken at Sugar Land). Swap in Maryland clinic photos when available.
+// Empty = the section shows a location map instead.
+$gallery = [
+    ['novara-consult-room',     'Consultation room', 'Private consultation room at Novara Healthcare', 'col-span-1 aspect-[3/4] lg:row-span-2'],
+    ['novara-clinic-lounge',    'Patient lounge',    'Patient lounge with leather sofas at Novara Healthcare', 'col-span-2 aspect-[4/3]'],
+    ['novara-clinic-seating',   'Waiting area',      'Waiting area seating at Novara Healthcare', 'col-span-1 aspect-[3/4] lg:row-span-2'],
+    ['novara-clinic-reception', 'Reception',         'Reception area at Novara Healthcare', 'col-span-2 aspect-[4/3]'],
+];
+
 $schema = [
     '@context' => 'https://schema.org',
     '@graph'   => [
         [
             '@type'     => 'MedicalClinic',
-            'name'      => $lp['name'] . ' – Sugar Land',
+            'name'      => $lp['name'] . ' – Gambrills, MD',
             'url'       => $lp['url'],
-            'address'   => ['@type' => 'PostalAddress', 'streetAddress' => $lp['street'], 'addressLocality' => 'Sugar Land', 'addressRegion' => 'TX', 'postalCode' => '77479', 'addressCountry' => 'US'],
+            'address'   => ['@type' => 'PostalAddress', 'streetAddress' => $lp['street'], 'addressLocality' => 'Gambrills', 'addressRegion' => 'MD', 'postalCode' => '21054', 'addressCountry' => 'US'],
             'openingHoursSpecification' => [['@type' => 'OpeningHoursSpecification', 'dayOfWeek' => ['Monday','Tuesday','Wednesday','Thursday','Friday'], 'opens' => '09:00', 'closes' => '17:00']],
         ],
         ['@type' => 'FAQPage', 'mainEntity' => array_map(fn($f) => ['@type' => 'Question', 'name' => $f[0], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f[1]]], $faqs)],
@@ -66,20 +76,20 @@ lp_head($lp, $title, $desc,
         <div>
             <p class="hero-in inline-flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-[13px] font-bold text-brand-800 shadow-sm ring-1 ring-brand-900/10">
                 <svg class="h-4 w-4 text-teal-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
-                Sugar Land, TX · 5501 Cabrera Dr
+                <?= e($lp['street']) ?>, <?= e($lp['city']) ?>
             </p>
             <h1 id="hero-title" class="hero-in mt-5 text-balance text-[2.5rem] font-extrabold leading-[1.05] tracking-[-0.03em] text-brand-950 [animation-delay:.06s] sm:text-[3.4rem]">
-                TMS Therapy for Depression in <span class="hl">Sugar Land</span>
+                Advanced TMS Treatment for <span class="hl">Depression</span>
             </h1>
             <p class="hero-in mt-5 max-w-xl text-lg leading-relaxed text-slate-600 [animation-delay:.12s]">
-                When antidepressants haven’t brought enough relief, TMS is a different approach: gentle magnetic pulses, no medication, no sedation. See if it may be right for you.
+                Explore TMS therapy, a non-invasive approach using gentle magnetic pulses to support depression treatment. No medication or sedation required.
             </p>
 
             <ul class="hero-in mt-7 space-y-3 [animation-delay:.18s]">
                 <?php foreach ([
                     ['FDA-cleared', 'for major depressive disorder in adults'],
                     ['Drug-free and non-invasive', 'you stay awake, no anesthesia'],
-                    ['20–40 minute sessions', 'at our Sugar Land clinic'],
+                    ['20–40 minute sessions', 'at our Maryland clinic'],
                 ] as [$b, $s]): ?>
                 <li class="flex items-start gap-3 text-[17px]">
                     <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-500 text-white"><?= $check ?></span>
@@ -94,7 +104,7 @@ lp_head($lp, $title, $desc,
                 <div>
                     <p class="text-xs font-bold uppercase tracking-[0.14em] text-teal-700">Apollo TMS therapy system</p>
                     <p class="mt-1.5 text-[15px] leading-snug text-brand-950">“Very knowledgeable… also very accommodating with their clients. I would give more than 5 stars if I had the option!”</p>
-                    <p class="mt-1.5 flex items-center gap-2 text-sm text-slate-500"><span class="text-amber-500" aria-label="5 stars">★★★★★</span> A.C., Novara client</p>
+                    <p class="mt-1.5 flex items-center gap-2 text-sm text-slate-500"><span class="text-amber-500" aria-label="5 stars">★★★★★</span> A.C., Novara Client</p>
                 </div>
             </div>
         </div>
@@ -155,7 +165,7 @@ lp_head($lp, $title, $desc,
                     <!-- Step 3 -->
                     <fieldset class="step mt-6 space-y-3 [.js_&]:mt-0" data-step="3">
                         <legend class="mb-1 text-lg font-extrabold text-brand-950">Where should we call you?</legend>
-                        <p class="mb-2 text-sm text-slate-500">Our Sugar Land team calls back during clinic hours.</p>
+                        <p class="mb-2 text-sm text-slate-500">Our Maryland team calls back during clinic hours.</p>
                         <input name="name" type="text" required autocomplete="name" placeholder="Full name" aria-label="Full name"
                                class="block w-full rounded-xl border-slate-200 px-4 py-3.5 text-brand-950 placeholder:text-slate-400 focus:border-brand-500 focus:ring-brand-500">
                         <input name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="Phone number" aria-label="Phone number" pattern="[\s\-\.\(\)\+]*(?:\d[\s\-\.\(\)\+]*){10,15}" title="10-digit phone number"
@@ -214,7 +224,7 @@ lp_head($lp, $title, $desc,
             $ico = fn($d) => '<svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="' . $d . '"/></svg>';
             foreach ([
                 ['Free phone consultation', 'Tell us a little about what you’ve tried so far. We answer your questions about TMS, timing and cost, and help check your insurance.', 'M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z'],
-                ['Clinical assessment', 'Visit our Sugar Land clinic. Our clinical team reviews your history and safety screening to decide whether TMS is appropriate.', 'M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z'],
+                ['Clinical assessment', 'Visit our Maryland clinic. Our clinical team reviews your history and safety screening to decide whether TMS is appropriate.', 'M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z'],
                 ['Start your sessions', 'Sit back, stay awake, and feel a gentle tapping. About 20–40 minutes per visit, typically five days a week for several weeks.', 'M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z'],
             ] as $i => [$h, $p, $path]): ?>
             <li class="reveal relative rounded-3xl bg-white p-7 ring-1 ring-brand-900/10">
@@ -278,20 +288,34 @@ lp_head($lp, $title, $desc,
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-                <p class="reveal text-sm font-bold uppercase tracking-[0.16em] text-teal-600">Real photos, not stock</p>
-                <h2 id="gallery-title" class="reveal mt-2 text-balance text-3xl font-extrabold tracking-[-0.02em] text-brand-950 sm:text-4xl">Inside our Sugar Land clinic</h2>
-                <p class="reveal mt-3 max-w-xl text-lg text-slate-500">A quiet, private space at <?= e($lp['street']) ?>. Here’s what you’ll see when you visit.</p>
+                <p class="reveal text-sm font-bold uppercase tracking-[0.16em] text-teal-600"><?= $gallery ? 'Real photos, not stock' : 'Gambrills, MD' ?></p>
+                <h2 id="gallery-title" class="reveal mt-2 text-balance text-3xl font-extrabold tracking-[-0.02em] text-brand-950 sm:text-4xl"><?= $gallery ? 'Inside Novara Healthcare' : 'Visit our Maryland clinic' ?></h2>
+                <p class="reveal mt-3 max-w-xl text-lg text-slate-500"><?= e($lp['street']) ?>, <?= e($lp['city']) ?>. Serving Annapolis, Crofton, Baltimore and the greater Washington DC area.</p>
             </div>
-            <a href="<?= e($lp['maps']) ?>" target="_blank" rel="noopener" class="reveal inline-flex shrink-0 items-center gap-1.5 font-bold text-brand-700 underline decoration-teal-300 decoration-2 underline-offset-8 hover:text-brand-900">Get directions ↗</a>
+            <a href="<?= e($lp['maps']) ?>" target="_blank" rel="noopener" class="reveal inline-flex shrink-0 items-center gap-1.5 font-bold text-brand-700 underline decoration-teal-300 decoration-2 underline-offset-8 hover:text-brand-900">Location map ↗</a>
         </div>
 
+        <?php if (!$gallery): ?>
+        <!-- Location map. Loads Google Maps only when the visitor asks (no third-party cookies before that). -->
+        <div id="map-box" class="reveal relative mt-10 overflow-hidden rounded-3xl bg-brand-50 ring-1 ring-brand-900/10">
+            <div class="aspect-[4/3] w-full sm:aspect-[21/9]" id="map-slot">
+                <div class="flex h-full w-full flex-col items-center justify-center gap-4 bg-[radial-gradient(circle_at_1px_1px,rgba(15,76,154,.12)_1px,transparent_0)] p-6 text-center [background-size:22px_22px]">
+                    <span class="flex h-14 w-14 items-center justify-center rounded-full bg-brand-700 text-white shadow-lg shadow-brand-700/30">
+                        <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                    </span>
+                    <p class="text-lg font-extrabold text-brand-950"><?= e($lp['street']) ?><br class="sm:hidden"><span class="hidden sm:inline">, </span><?= e($lp['city']) ?></p>
+                    <div class="flex flex-col gap-2 sm:flex-row">
+                        <button type="button" data-map="<?= e($lp['map_embed']) ?>" class="rounded-xl bg-brand-950 px-5 py-3 text-sm font-extrabold text-white transition hover:bg-brand-800">Show map</button>
+                        <a href="<?= e($lp['maps']) ?>" target="_blank" rel="noopener" class="rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-brand-950 ring-1 ring-brand-900/10 transition hover:bg-brand-50">Open in Google Maps ↗</a>
+                    </div>
+                    <p class="text-xs text-slate-500">The map loads from Google Maps.</p>
+                </div>
+            </div>
+        </div>
+        <?php else: ?>
+
         <ul class="mt-10 grid grid-flow-dense grid-cols-2 gap-3 sm:gap-4 lg:h-[600px] lg:grid-cols-4 lg:grid-rows-2" data-stagger>
-            <?php foreach ([
-                ['novara-consult-room',     'Consultation room',  'Private consultation room at Novara Healthcare, Sugar Land', 'col-span-1 aspect-[3/4] lg:row-span-2'],
-                ['novara-clinic-lounge',    'Patient lounge',     'Patient lounge with leather sofas at Novara Healthcare, Sugar Land', 'col-span-2 aspect-[4/3]'],
-                ['novara-clinic-seating',   'Waiting area',       'Waiting area seating at Novara Healthcare, Sugar Land', 'col-span-1 aspect-[3/4] lg:row-span-2'],
-                ['novara-clinic-reception', 'Reception',          'Reception area at Novara Healthcare, Sugar Land', 'col-span-2 aspect-[4/3]'],
-            ] as $i => [$photo, $cap, $alt, $span]): ?>
+            <?php foreach ($gallery as $i => [$photo, $cap, $alt, $span]): ?>
             <li class="reveal <?= $span ?> lg:aspect-auto">
                 <a href="<?= $img . $photo ?>.jpg" data-gallery="<?= $i ?>" data-caption="<?= e($cap) ?>" class="group relative block h-full overflow-hidden rounded-3xl bg-slate-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-teal-400">
                     <img src="<?= $img . $photo ?>-800.jpg" srcset="<?= $img . $photo ?>-800.jpg 800w, <?= $img . $photo ?>.jpg 1600w" sizes="(min-width: 1024px) 50vw, 100vw"
@@ -305,9 +329,11 @@ lp_head($lp, $title, $desc,
             </li>
             <?php endforeach; ?>
         </ul>
+        <?php endif; ?>
     </div>
 </section>
 
+<?php if ($gallery): ?>
 <!-- Gallery lightbox -->
 <dialog id="lightbox" class="m-auto max-h-none max-w-none bg-transparent p-0 backdrop:bg-brand-950/90" aria-label="Clinic photo">
     <figure class="relative flex h-[100dvh] w-screen flex-col items-center justify-center gap-3 p-4 sm:p-10">
@@ -318,16 +344,18 @@ lp_head($lp, $title, $desc,
         <button type="button" data-lb="1" class="absolute right-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white ring-1 ring-white/20 hover:bg-white/20 sm:right-6" aria-label="Next photo">›</button>
     </figure>
 </dialog>
+<?php endif; ?>
 
 <!-- ===================== Proof ===================== -->
 <section class="py-16 lg:py-20" aria-labelledby="proof-title">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="grid items-center gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
             <figure class="reveal relative" data-anim="left">
-                <img src="<?= $img ?>novara-team-community-800.jpg" alt="The Novara Healthcare team at a community event in Houston" width="800" height="600" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-3xl object-cover">
+                <!-- Apollo TMS system (image: neurocare group, manufacturer). Swap for a Maryland clinic/team photo when available. -->
+                <img src="<?= $img ?>apollo-tms-patient-800.jpg" alt="Patient seated in the Apollo TMS therapy chair with the magnetic coil positioned" width="800" height="513" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-3xl object-cover" style="object-position: 35% center">
                 <figcaption class="absolute -bottom-5 left-5 right-5 rounded-2xl bg-white p-4 shadow-card ring-1 ring-brand-900/5 sm:left-auto sm:w-72">
-                    <p class="font-extrabold text-brand-950">Meet our team</p>
-                    <p class="text-sm text-slate-500">Led by Spree, PharmD (Executive Director) and Misha (Chief Neuro Technician)</p>
+                    <p class="font-extrabold text-brand-950">Apollo TMS therapy system</p>
+                    <p class="text-sm text-slate-500">FDA-cleared TMS, delivered by our Maryland team in Gambrills</p>
                 </figcaption>
             </figure>
             <div class="pt-6 lg:pt-0">
@@ -335,7 +363,7 @@ lp_head($lp, $title, $desc,
                 <div class="mt-8 space-y-4" data-stagger>
                     <?php foreach ([
                         ['As a fellow healthcare provider, I have full confidence in recommending Novara to colleagues and patients alike.', 'E.J.', 'Healthcare provider'],
-                        ['Not only are they very knowledgeable they are also very accommodating with their clients and staff. I would give more than 5 stars if I had the option!', 'A.C.', 'Novara client'],
+                        ['Not only are they very knowledgeable they are also very accommodating with their clients and staff. I would give more than 5 stars if I had the option!', 'A.C.', 'Novara Client'],
                     ] as [$q, $who, $role]): ?>
                     <figure class="reveal rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-100">
                         <p class="text-amber-500" aria-label="5 stars">★★★★★</p>
@@ -376,16 +404,16 @@ lp_head($lp, $title, $desc,
         <div class="reveal grid overflow-hidden rounded-[2rem] bg-brand-700 text-white lg:grid-cols-[1.2fr_1fr]" data-anim="zoom">
             <div class="p-8 sm:p-12">
                 <h2 id="final-title" class="text-balance text-3xl font-extrabold tracking-[-0.02em] sm:text-[2.6rem] sm:leading-[1.1]">Find out if TMS is right for you</h2>
-                <p class="mt-4 max-w-md text-lg text-white/80">One free call with our Sugar Land team. No pressure, no commitment.</p>
+                <p class="mt-4 max-w-md text-lg text-white/80">One free call with our Maryland team. No pressure, no commitment.</p>
                 <div class="mt-8 flex flex-col gap-3 sm:flex-row">
                     <a href="#consult" class="inline-flex items-center justify-center gap-2 rounded-xl bg-teal-400 px-7 py-4 font-extrabold text-brand-950 transition hover:bg-teal-300">Get my free consultation <?= $arrow ?></a>
                 </div>
             </div>
             <div class="relative min-h-[240px]">
-                <img src="<?= $img ?>novara-clinic-seating-800.jpg" alt="Patient lounge at Novara Healthcare, Sugar Land" width="600" height="800" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
+                <img src="<?= $img ?>novara-clinic-seating-800.jpg" alt="Patient lounge at Novara Healthcare" width="600" height="800" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover">
                 <a href="<?= e($lp['maps']) ?>" target="_blank" rel="noopener" class="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/95 p-4 text-brand-950 shadow-lg transition hover:bg-white">
-                    <span class="block font-extrabold">5501 Cabrera Dr, Suite 503</span>
-                    <span class="block text-sm text-slate-500">Sugar Land, TX 77479 · Get directions ↗</span>
+                    <span class="block font-extrabold"><?= e($lp['street']) ?></span>
+                    <span class="block text-sm text-slate-500"><?= e($lp['city']) ?> · Get directions ↗</span>
                 </a>
             </div>
         </div>
@@ -457,6 +485,16 @@ lp_head($lp, $title, $desc,
         btn.disabled = true;
         form.querySelector('.lp-submit-label').textContent = 'Sending…';
         dl.push({ event: 'lp_form_submit' });   // no health answers sent to analytics
+    });
+
+    // Location map: load the Google Maps embed only when asked
+    document.querySelectorAll('[data-map]').forEach(function (b) {
+        b.addEventListener('click', function () {
+            var f = document.createElement('iframe');
+            f.src = b.dataset.map; f.title = 'Map: Novara Healthcare, Gambrills, MD'; f.loading = 'lazy';
+            f.referrerPolicy = 'no-referrer-when-downgrade'; f.className = 'h-full w-full border-0';
+            var slot = document.getElementById('map-slot'); slot.innerHTML = ''; slot.appendChild(f);
+        });
     });
 
     // Gallery lightbox (links open the full image if JS or <dialog> is unavailable)
