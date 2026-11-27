@@ -49,7 +49,7 @@ $schema = [
 ];
 
 lp_head($lp, $title, $desc,
-    '<link rel="preload" as="image" href="' . $img . 'apollo-tms-chair.webp">'
+    '<link rel="preload" as="image" href="' . $img . 'apollo-system-800.jpg">'
     . "\n    <script type=\"application/ld+json\">" . json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>'
     . "\n    <style>
         /* Multi-step form: without JS every step shows; with JS one at a time */
@@ -100,7 +100,7 @@ lp_head($lp, $title, $desc,
 
             <!-- Apollo device + review -->
             <div class="hero-in mt-9 hidden items-center gap-5 rounded-3xl bg-white p-4 pr-6 shadow-soft ring-1 ring-brand-900/5 [animation-delay:.24s] sm:flex">
-                <img src="<?= $img ?>apollo-tms-chair.webp" alt="Apollo TMS therapy system with treatment chair" width="696" height="608" class="h-28 w-32 shrink-0 rounded-2xl bg-brand-50 object-contain p-2">
+                <img src="<?= $img ?>apollo-system-800.jpg" alt="Apollo TMS therapy system with treatment chair" width="800" height="525" class="h-28 w-32 shrink-0 rounded-2xl bg-brand-50 object-cover" style="object-position: 50% 62%">
                 <div>
                     <p class="text-xs font-bold uppercase tracking-[0.14em] text-teal-700">Apollo TMS therapy system</p>
                     <p class="mt-1.5 text-[15px] leading-snug text-brand-950">“Very knowledgeable… also very accommodating with their clients. I would give more than 5 stars if I had the option!”</p>
@@ -351,8 +351,8 @@ lp_head($lp, $title, $desc,
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="grid items-center gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
             <figure class="reveal relative" data-anim="left">
-                <!-- Apollo TMS system (image: neurocare group, manufacturer). Swap for a Maryland clinic/team photo when available. -->
-                <img src="<?= $img ?>apollo-tms-patient-800.jpg" alt="Patient seated in the Apollo TMS therapy chair with the magnetic coil positioned" width="800" height="513" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-3xl object-cover" style="object-position: 35% center">
+                <!-- Apollo TMS system (official neurocare image, used with permission) -->
+                <img src="<?= $img ?>apollo-patient-coil-800.jpg" srcset="<?= $img ?>apollo-patient-coil-800.jpg 800w, <?= $img ?>apollo-patient-coil.jpg 1600w" sizes="(min-width: 1024px) 40vw, 100vw" alt="Smiling patient during a session with the Apollo TMS coil positioned on his head" width="800" height="533" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-3xl object-cover" style="object-position: 45% center">
                 <figcaption class="absolute -bottom-5 left-5 right-5 rounded-2xl bg-white p-4 shadow-card ring-1 ring-brand-900/5 sm:left-auto sm:w-72">
                     <p class="font-extrabold text-brand-950">Apollo TMS therapy system</p>
                     <p class="text-sm text-slate-500">FDA-cleared TMS, delivered by our Maryland team in Gambrills</p>
@@ -375,6 +375,39 @@ lp_head($lp, $title, $desc,
                 <p class="reveal mt-4 text-xs text-slate-400">Individual experiences. Results vary.</p>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- ===================== Video stories (neurocare, Apollo TMS) ===================== -->
+<section class="bg-brand-950 py-16 text-white lg:py-20" aria-labelledby="videos-title">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="max-w-2xl">
+            <p class="reveal text-sm font-bold uppercase tracking-[0.16em] text-teal-300">Video stories</p>
+            <h2 id="videos-title" class="reveal mt-2 text-balance text-3xl font-extrabold tracking-[-0.02em] sm:text-4xl">Real people, real TMS journeys</h2>
+            <p class="reveal mt-3 text-lg text-white/70">Hear from people who were treated for depression with the Apollo TMS system, the same system we use.</p>
+        </div>
+        <ul class="mt-10 grid gap-5 md:grid-cols-3" data-stagger>
+            <?php foreach ([
+                ['64Awo-535d4', 'video-anne',     'Anne’s story',     'TMS helped me feel like myself again'],
+                ['Yb_YOP9KBgc', 'video-schatzie', 'Schatzie’s story', 'TMS helped me reclaim my life after 50 years of depression'],
+                ['ZWTN7Z8sTno', 'video-kelly',    'Kelly’s story',    'Back on stage and loving life again'],
+            ] as [$yt, $thumb, $who, $quote]): ?>
+            <li class="reveal">
+                <div class="relative aspect-video overflow-hidden rounded-2xl bg-black ring-1 ring-white/10">
+                    <button type="button" data-yt="<?= e($yt) ?>" data-title="<?= e($who) ?>" class="group absolute inset-0 h-full w-full" aria-label="Play video: <?= e($who) ?>">
+                        <img src="<?= $img . $thumb ?>.jpg" alt="" width="800" height="450" loading="lazy" decoding="async" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
+                        <span class="absolute inset-0 bg-brand-950/10 transition group-hover:bg-transparent" aria-hidden="true"></span>
+                        <span class="absolute bottom-3 right-3 flex h-12 w-12 items-center justify-center rounded-full bg-white text-brand-900 shadow-xl ring-4 ring-white/30 transition group-hover:scale-110 group-hover:bg-teal-300" aria-hidden="true">
+                            <svg class="ml-0.5 h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72a1 1 0 001.5.86l11-6.86a1 1 0 000-1.72l-11-6.86A1 1 0 008 5.14z"/></svg>
+                        </span>
+                    </button>
+                </div>
+                <p class="mt-4 text-sm font-bold uppercase tracking-[0.12em] text-teal-300"><?= e($who) ?></p>
+                <p class="mt-1 text-lg font-bold leading-snug">“<?= e($quote) ?>”</p>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+        <p class="reveal mt-8 text-xs leading-relaxed text-white/50">Patient stories shared by neurocare, maker of the Apollo TMS system. These are not Novara patients. Individual experiences; results vary and TMS doesn’t work for everyone. Videos play from YouTube.</p>
     </div>
 </section>
 
@@ -485,6 +518,18 @@ lp_head($lp, $title, $desc,
         btn.disabled = true;
         form.querySelector('.lp-submit-label').textContent = 'Sending…';
         dl.push({ event: 'lp_form_submit' });   // no health answers sent to analytics
+    });
+
+    // Video stories: swap the thumbnail for a YouTube (privacy-enhanced) player on click
+    document.querySelectorAll('[data-yt]').forEach(function (b) {
+        b.addEventListener('click', function () {
+            var f = document.createElement('iframe');
+            f.src = 'https://www.youtube-nocookie.com/embed/' + b.dataset.yt + '?autoplay=1&rel=0&modestbranding=1';
+            f.title = b.dataset.title; f.className = 'absolute inset-0 h-full w-full border-0';
+            f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            f.allowFullscreen = true; f.referrerPolicy = 'strict-origin-when-cross-origin';
+            b.replaceWith(f);
+        });
     });
 
     // Location map: load the Google Maps embed only when asked
